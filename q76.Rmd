@@ -1,0 +1,43 @@
+---
+title: "Questão 76 - Lista 7 - Inferência Estatística"
+author: "Augusto Cesar Ribeiro Nunes - 13/0103004"
+date: "November 25, 2015"
+output: html_document
+---
+
+# Introdução
+
+  Este trabalho tem como intuito explicar ao leitor o conceito de nível de confiança $1 - \alpha$ de um intervalo de confiança. A Estimação Intervalar ocupa um lugar pivotal na Inferência Estatística, complementando, em certo sentido, a Estimação Pontual, e intimamente associada ao que é comumemente visto como o terceiro fundamento da Inferência Estatística: os Testes de Hipóteses. 
+  
+  Uma parte considerável do cânone da disciplina foi estabelecida durante a primeira metade do século XX conjuntamente por [Jerzy Neyman](https://en.wikipedia.org/wiki/Jerzy_Neyman) [em inglês] e [Egon Pearson](https://en.wikipedia.org/wiki/Egon_Pearson) [idem]. Existe uma extensa bibliografia sobre a _saga_ do desenvolvimento da disciplina, que inclui as contribuições de Neyman, Pearson e outros protagonistas:
+  
+  * _The Lady Tasting Tea: How Statistics Revolutionized Science in the Twentieth Century_, de David Salsburg, publicado como uma tradução "aceitável" no Brasil como _Uma Senhora Toma Chá: Como a Estatística Revolucionou a Ciência no Século XX_: 
+  
+  
+
+
+<!-- # ```{r setup, include=FALSE} -->
+<!-- # knitr::opts_chunk$set(echo = TRUE) -->
+<!-- # ``` -->
+
+
+
+<!-- ## R Markdown -->
+
+<!-- This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>. -->
+
+<!-- When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this: -->
+
+<!-- ```{r cars} -->
+<!-- summary(cars) -->
+<!-- ``` -->
+
+<!-- ## Including Plots -->
+
+<!-- You can also embed plots, for example: -->
+
+<!-- ```{r pressure, echo=FALSE} -->
+<!-- plot(pressure) -->
+<!-- ``` -->
+
+<!-- Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot. -->
