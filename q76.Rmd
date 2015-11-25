@@ -9,9 +9,10 @@ output: html_document
 
   Este trabalho tem como intuito explicar ao leitor o conceito de nível de confiança $1 - \alpha$ de um intervalo de confiança. A Estimação Intervalar ocupa um lugar pivotal na Inferência Estatística, complementando, em certo sentido, a Estimação Pontual, e intimamente associada ao que é comumemente visto como o terceiro fundamento da Inferência Estatística: os Testes de Hipóteses. 
   
-  Uma parte considerável do cânone da disciplina foi estabelecida durante a primeira metade do século XX conjuntamente por [Jerzy Neyman](https://en.wikipedia.org/wiki/Jerzy_Neyman) [em inglês] e [Egon Pearson](https://en.wikipedia.org/wiki/Egon_Pearson) [idem]. Existe uma extensa bibliografia sobre a _saga_ do desenvolvimento da disciplina, que inclui as contribuições de Neyman, Pearson e outros protagonistas:
+  Uma parte considerável do cânone da disciplina foi estabelecida durante a primeira metade do século XX conjuntamente por [Jerzy Neyman](https://en.wikipedia.org/wiki/Jerzy_Neyman) [em inglês] e [Egon Pearson](https://en.wikipedia.org/wiki/Egon_Pearson) [idem]. Existe uma extensa bibliografia sobre a _saga_ do desenvolvimento da disciplina, que inclui as contribuições de Neyman, Pearson e outros protagonistas, porém, em razão da brevidade, cito apenas o livro mais facilmente acessível aos falantes do português: _The Lady Tasting Tea: How Statistics Revolutionized Science in the Twentieth Century_, de David Salsburg, publicado como uma tradução "aceitável" no Brasil como _Uma Senhora Toma Chá: Como a Estatística Revolucionou a Ciência no Século XX_: no Capítulo 12, e brevemente, no Capítulo 27 cita as contribuições seminais destes senhores.
   
-  * _The Lady Tasting Tea: How Statistics Revolutionized Science in the Twentieth Century_, de David Salsburg, publicado como uma tradução "aceitável" no Brasil como _Uma Senhora Toma Chá: Como a Estatística Revolucionou a Ciência no Século XX_: 
+# Questão
+
   
   
 
