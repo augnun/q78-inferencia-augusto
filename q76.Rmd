@@ -1,49 +1,106 @@
 ---
 title: "Questão 76 - Lista 7 - Inferência Estatística"
-author: "Augusto Cesar Ribeiro Nunes - 13/0103004"
-date: "November 25, 2015"
+author: 
+- Alisson Moreira Ferreira - 11/0106946
+- Augusto Cesar Ribeiro Nunes - 13/0103004
+- Davi Souza Botelho - 12/0029057
+- Thalyta Brito dos Santos - 12/0023075
+
+date: "Novembro de 2015"
 output: html_document
+runtime: shiny
 ---
 
 # Introdução
 
   Este trabalho tem como intuito explicar ao leitor o conceito de nível de confiança $1 - \alpha$ de um intervalo de confiança. A Estimação Intervalar ocupa um lugar pivotal na Inferência Estatística, complementando, em certo sentido, a Estimação Pontual, e intimamente associada ao que é comumemente visto como o terceiro fundamento da Inferência Estatística: os Testes de Hipóteses. 
   
-  Uma parte considerável do cânone da disciplina foi estabelecida durante a primeira metade do século XX conjuntamente por [Jerzy Neyman](https://en.wikipedia.org/wiki/Jerzy_Neyman) [em inglês] e [Egon Pearson](https://en.wikipedia.org/wiki/Egon_Pearson) [idem]. Existe uma extensa bibliografia sobre a _saga_ do desenvolvimento da disciplina, que inclui as contribuições de Neyman, Pearson e outros protagonistas, porém, em razão da brevidade, cito apenas o livro mais facilmente acessível aos falantes do português: _The Lady Tasting Tea: How Statistics Revolutionized Science in the Twentieth Century_, de David Salsburg, publicado como uma tradução "aceitável" no Brasil como _Uma Senhora Toma Chá: Como a Estatística Revolucionou a Ciência no Século XX_: no Capítulo 12, e brevemente, no Capítulo 27 cita as contribuições seminais destes senhores.
+  Uma parte considerável do cânone da disciplina foi estabelecida durante a primeira metade do século XX conjuntamente por [Jerzy Neyman](https://en.wikipedia.org/wiki/Jerzy_Neyman) [em inglês] e [Egon Pearson](https://en.wikipedia.org/wiki/Egon_Pearson) [idem]. Existe uma extensa bibliografia sobre a _saga_ do desenvolvimento da disciplina, que inclui as contribuições de Neyman, Pearson e outros protagonistas, porém, em razão da brevidade, cito apenas o livro mais facilmente acessível aos falantes do português: [_The Lady Tasting Tea: How Statistics Revolutionized Science in the Twentieth Century_](http://www.amazon.com/The-Lady-Tasting-Tea-Revolutionized/dp/0805071342), de David Salsburg, publicado como uma tradução "aceitável" no Brasil como [_Uma Senhora Toma Chá: Como a Estatística Revolucionou a Ciência no Século XX_](http://www.zahar.com.br/livro/uma-senhora-toma-ch%C3%A1): no Capítulo 12, e brevemente, no Capítulo 27 cita as contribuições seminais destes senhores.
   
-# Questão
+# Exemplos
 
-  Como a didaticidade do exemplo é essencial, escolhi apresentar um aplicativo interativo escrito utilizando o pacote [_Shiny_](http://shiny.rstudio.com/) da distribuição de computação científica [_R_](http://r-project.org). Livremente disponível e graças ao serviço de hospedagem livre [shinyapps](https://shinyapps.io), a escolha foi fácil. O aplicativo é __fortemente__ baseado no trabalho disponibilizado livremente no repositório [ConfidenceIntervals](https://github.com/JackStat/ConfidenceIntervals), mantido pelo usuário [JackStat](https://github.com/JackStat/) no serviço [github](https://github.com). O github é um serviço de hospedagem de projetos de programação que inclui uma miríade de exemplos, muitos em R.
+## Exemplo 1: Estudo de caso usando conjunto de dados do R
+  Este exemplo inicial ilustra a utilização do conjunto de dados [mtcars](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html) disponível do pacote base do R em uma situação hipotética.
+  Um empresário americano do ramo automobilístico dispõe de um conjunto de dados  foram coletados em sua linha de produção, que possui diversas variáveis de interesse no processo produtivo. Interessado em saber se existe relação entre as variáveis MPG (milhas por galão) e CYL (quantidade de cilindros), o empresário contratou uma empresa de consultoria em estatística para realizar um estudo. Esse estudo consiste em determinar um intervalo de confiança para a variável número de cilindros e analisar se os valores da variável MPG (milhas por galão) estão contidos nesse intervalo, considerando um intervalo de confiança de 95%, o qual é suficiente para analisar se a quantidade de milhas por galão de cada carro está em conformidade com o número de cilindros. Diante disso, os estatísticos que trabalham nessa empresa obtiveram o conjunto de dados __mtcars__ e realizaram as seguintes programações utilizando o software de análise de dados R.
+
+```{r exemplo1, warning=FALSE, tidy=TRUE}
+mean <- tapply(mtcars$mpg, list(mtcars$cyl), mean)
+sd <- tapply(mtcars$mpg, list(mtcars$cyl), sd)
+x <- data.frame(mean, sd)
+
+# Criando um conjunto de dados com média e desvio padrão. 
+# Uso do comando tapply é para retornar uma lista de vetores.
+# Ao final criou-se um data-frame com as variáveis mean(média) e sd(desvio padrão)
+x$LL <- x$mean - 1.96 * x$sd
+x$UL <- x$mean + 1.96 * x$sd
+# Estabelecendo os limites superior e inferior dos intervalos de confiança.
+title <-
+  "MPG por Número de Cilindros com Intervalo de Confiança de 95%"
+dotchart(
+  x$mean,
+  col = "blue",
+  xlim = c(floor(min(x$LL) / 10) * 10, ceiling(max(x$UL) / 10) * 10),
+  main = title,
+  xlab = "Milhas por galão",
+  ylab = "Número de cilindros"
+)### Plotando o gráfico dotchart com os intervalos de confiança.
+
+for (i in 1:nrow(x)) {
+  lines(x = c(x$LL[i], x$UL[i]), y = c(i, i))
+}
+grid() ## comando para adicionar as linhas horizontais no gráfico
+
+```
+
+  __Conclusão__ Diante do gráfico acima podemos observar que as variáveis são inversamente proporcionais, ou seja, quanto maior o número de cilindros, menor a quantidade de combustível o veículo necessita para deslocar-se por uma milha. E mais, percebe-se que intervalos com mesmo nível de confiança (0,95) possuem comprimentos diferentes, pois quando o número de cilindros é igual a 4, o intervalo de confiança é o de maior amplitude e quando o número de cilindros é 6, o intervalo de confiança é o de menor amplitude.
+
+## Exemplo 2: IC para a Normal fixada com dados simulados
+  Os exemplos mais utilizados para Intervalos de Confiança envolvem a Distribuição Normal, por vários motivos, e citamos dois: 
+  
+  * ela é uma distribuição frequente em muitos fenômenos naturais, sociais, econômicos etc.; 
+  * outras distribuições podem ser _aproximadas_ a partir dela, graças a resultados ditos _assintóticos_: isto é, para _grandes_ amostras - graças ao essencial [Teorema Central do Limite](http://leg.ufpr.br/~silvia/CE001/node38.html)) quando temos por exemplo a distribuição [Binomial](https://onlinecourses.science.psu.edu/stat414/node/179) (com p próximo de 0.5), [Poisson](https://onlinecourses.science.psu.edu/stat414/node/180), [Soma de Postos de Wilcoxon](http://www.amstat.org/publications/jse/v18n2/bellera.pdf)).
+  
+  Ou seja, podemos trabalhar com a Normal em muitos ([__não todos!__](http://www.businessinsider.com/the-fall-of-long-term-capital-management-2014-7)) os casos com certo grau de acurácia que pode ser mais ou menos aceitável, dependendo do nosso escrutínio com o problema. 
+  
+```{r exemplo2}
+x=rnorm(1000, 18, 9) # Vetor Aleatório de 1000 observações da N com média 18 e dp 9
+norm.interval = function(data, variance = var(data), conf.level = 0.95) {
+  
+  z = qnorm((1 - conf.level)/2, lower.tail = FALSE)
+  xbar = mean(data)
+  sdx = sqrt(variance/length(data))
+  inter=c(xbar - z * sdx, xbar + z * sdx) 
+  return(inter)}
+norm.interval(x)
+# Exemplo de simulação
+n.draw = 100  # número de realizações da amostragem 
+mu = 18 # media da amostra aleatória gerada
+n = 30  # tamanho de cada amostra
+SD = sd(x) # dp da população (conhecido)
+draws = matrix(rnorm(n.draw * n, mu, SD), n) #criação de conjunto de dados com todas as amostras, cada uma em uma coluna
+
+intervalo = apply(draws, 2, norm.interval) #criando os intervalos 
+plot(range(intervalo), c(0, 1 + n.draw), type = "n", xlab = "média", ylab = "número da amostragem")
+for (i in 1:n.draw) lines(intervalo[, i], rep(i, 2), lwd = 2)
+abline(v = 18, lwd = 2, lty = 2)
+  
+```
+
+  Note que a média da distribuição __simulada__
+## Exemplo 3: Aplicativo Interativo  
+  Como a didaticidade do trabalho é essencial, escolhemos apresentar um aplicativo interativo escrito utilizando o pacote [_Shiny_](http://shiny.rstudio.com/) da distribuição de computação científica [_R_](http://r-project.org). Livremente disponível e graças ao serviço de hospedagem livre [shinyapps](https://shinyapps.io), a escolha foi fácil. O aplicativo é __fortemente__ baseado no trabalho disponibilizado livremente no repositório [ConfidenceIntervals](https://github.com/JackStat/ConfidenceIntervals), mantido pelo usuário [JackStat](https://github.com/JackStat/) no serviço [github](https://github.com). O github é um serviço de hospedagem de projetos de programação que comporta um rico ecossistema escrito em uma miríade de linguagens de programação, inclusive R.
   
   O programa abaixo gera 100 intervalos de confiança aleatórios para a média da distribuição Normal a partir dos parâmetros informados: o tamanho amostral (usado para gerar cada IC), a média e a variância usadas para simular os dados, e o nível de confiança.
   
   
+```{r appshiny, echo=FALSE}
+library(shiny)
+shinyAppDir(
+  "./appshiny",
+  options=list(
+    width="100%", height=700
+  )
+)
+```
   
-  
 
-
-<!-- # ```{r setup, include=FALSE} -->
-<!-- # knitr::opts_chunk$set(echo = TRUE) -->
-<!-- # ``` -->
-
-
-
-<!-- ## R Markdown -->
-
-<!-- This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>. -->
-
-<!-- When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this: -->
-
-<!-- ```{r cars} -->
-<!-- summary(cars) -->
-<!-- ``` -->
-
-<!-- ## Including Plots -->
-
-<!-- You can also embed plots, for example: -->
-
-<!-- ```{r pressure, echo=FALSE} -->
-<!-- plot(pressure) -->
-<!-- ``` -->
-
-<!-- Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot. -->
