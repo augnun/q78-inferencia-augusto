@@ -13,6 +13,11 @@ output: html_document
   
 # Questão
 
+  Como a didaticidade do exemplo é essencial, escolhi apresentar um aplicativo interativo escrito utilizando o pacote [_Shiny_](http://shiny.rstudio.com/) da distribuição de computação científica [_R_](http://r-project.org). Livremente disponível e graças ao serviço de hospedagem livre [shinyapps](https://shinyapps.io), a escolha foi fácil. O aplicativo é __fortemente__ baseado no trabalho disponibilizado livremente no repositório [ConfidenceIntervals](https://github.com/JackStat/ConfidenceIntervals), mantido pelo usuário [JackStat](https://github.com/JackStat/) no serviço [github](https://github.com). O github é um serviço de hospedagem de projetos de programação que inclui uma miríade de exemplos, muitos em R.
+  
+  O programa abaixo gera 100 intervalos de confiança aleatórios para a média da distribuição Normal a partir dos parâmetros informados: o tamanho amostral (usado para gerar cada IC), a média e a variância usadas para simular os dados, e o nível de confiança.
+  
+  
   
   
 
